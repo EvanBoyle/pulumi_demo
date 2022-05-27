@@ -1,3 +1,5 @@
+// Copyright 2016-2019, Pulumi Corporation.  All rights reserved.
+
 import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
@@ -294,7 +296,7 @@ function createWWWAliasRecord(targetDomain: string, distribution: aws.cloudfront
 }
 
 const bucketPolicy = new aws.s3.BucketPolicy("bucketPolicy", {
-    bucket: siteBucket.id, // refer to the bucket created earlier
+    bucket: contentBucket.id, // refer to the bucket created earlier
     policy: pulumi.all([originAccessIdentity.iamArn, contentBucket.arn]).apply(([oaiArn, bucketArn]) =>JSON.stringify({
         Version: "2012-10-17",
         Statement: [
